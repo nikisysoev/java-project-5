@@ -1,0 +1,13 @@
+.gradle
+
+build
+
+.idea
+
+database.mv.db
+database.trace.db
+taskManager.mv.db
+
+node
+frontend/build
+frontend/node_modules
