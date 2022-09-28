@@ -4,6 +4,9 @@ import com.querydsl.core.types.Predicate;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Task;
 import hexlet.code.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
@@ -31,22 +34,27 @@ public class TaskController {
     private static final String TASK_OWNER =
             "@taskRepository.findById(#id).get().getAuthor().getEmail() == authentication.getName()";
 
+    @Operation(summary = "Get task")
     @GetMapping(UserController.ID)
     public Task getTask(@PathVariable final Long id) {
         return taskService.getTask(id);
     }
 
+    @Operation(summary = "Get all tasks")
     @GetMapping
     public List<Task> getTasks(@QuerydslPredicate final Predicate predicate) {
         return taskService.getTasks(predicate);
     }
 
+    @Operation(summary = "Create new task")
+    @ApiResponses(@ApiResponse(responseCode = "201", description = "Task created"))
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Task createTask(@RequestBody @Valid final TaskDto taskDto) {
         return taskService.createTask(taskDto);
     }
 
+    @Operation(summary = "Update task")
     @PreAuthorize(TASK_OWNER)
     @PutMapping(UserController.ID)
     public Task updateTask(@PathVariable final Long id,
@@ -55,6 +63,7 @@ public class TaskController {
         return taskService.updateTask(id, taskDto);
     }
 
+    @Operation(summary = "Delete task")
     @PreAuthorize(TASK_OWNER)
     @DeleteMapping(UserController.ID)
     public void deleteTask(@PathVariable final Long id) {

@@ -4,6 +4,9 @@ import hexlet.code.dto.LabelDto;
 import hexlet.code.exceptions.DeleteException;
 import hexlet.code.model.Label;
 import hexlet.code.service.LabelService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import java.util.List;
 import static hexlet.code.controller.LabelController.LABEL_CONTROLLER;
@@ -33,22 +35,27 @@ public class LabelController {
         this.labelService = labelService;
     }
 
+    @Operation(summary = "Get label")
     @GetMapping(ID)
     public Label getLabel(@PathVariable final Long id) {
         return labelService.getLabel(id);
     }
 
+    @Operation(summary = "Get all labels")
     @GetMapping
     public List<Label> getLabels() {
         return labelService.getLabels();
     }
 
+    @Operation(summary = "Create new label")
+    @ApiResponses(@ApiResponse(responseCode = "201", description = "Label created"))
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Label createLabel(@RequestBody @Valid final LabelDto labelDto) {
         return labelService.createLabel(labelDto);
     }
 
+    @Operation(summary = "Update label")
     @PutMapping(ID)
     public Label updateLabel(@PathVariable final Long id,
                              @RequestBody @Valid final LabelDto labelDto) {
@@ -56,6 +63,7 @@ public class LabelController {
         return labelService.updateLabel(id, labelDto);
     }
 
+    @Operation(summary = "Delete label")
     @DeleteMapping(ID)
     public void deleteLabel(@PathVariable final Long id) throws DeleteException {
         labelService.deleteLabel(id);

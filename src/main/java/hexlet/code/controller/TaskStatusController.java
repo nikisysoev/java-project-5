@@ -4,6 +4,9 @@ import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.exceptions.DeleteException;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.service.TaskStatusService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,22 +30,27 @@ public class TaskStatusController {
     public static final String TASK_STATUS_CONTROLLER_PATH = "/statuses";
     private final TaskStatusService taskStatusService;
 
+    @Operation(summary = "Get status")
     @GetMapping(UserController.ID)
     public TaskStatus getTaskStatus(@PathVariable final Long id) {
         return taskStatusService.getTaskStatus(id);
     }
 
+    @Operation(summary = "Get all statuses")
     @GetMapping
     public List<TaskStatus> getTaskStatuses() {
         return taskStatusService.getTaskStatuses();
     }
 
+    @Operation(summary = "Create new status")
+    @ApiResponses(@ApiResponse(responseCode = "201", description = "Status created"))
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskStatus createTaskStatus(@RequestBody @Valid final TaskStatusDto taskStatusDto) {
         return taskStatusService.createTaskStatus(taskStatusDto);
     }
 
+    @Operation(summary = "Update status")
     @PutMapping(UserController.ID)
     public TaskStatus updateTaskStatus(@PathVariable final Long id,
                                        @RequestBody @Valid final TaskStatusDto taskStatusDto) {
@@ -50,6 +58,7 @@ public class TaskStatusController {
         return taskStatusService.updateTaskStatus(id, taskStatusDto);
     }
 
+    @Operation(summary = "Delete status")
     @DeleteMapping(UserController.ID)
     public void deleteTaskStatus(@PathVariable final Long id) throws DeleteException {
         taskStatusService.deleteTaskStatus(id);

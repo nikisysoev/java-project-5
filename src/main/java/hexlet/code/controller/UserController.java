@@ -4,6 +4,9 @@ import hexlet.code.dto.UserDto;
 import hexlet.code.exceptions.DeleteException;
 import hexlet.code.model.User;
 import hexlet.code.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,28 +34,35 @@ public class UserController {
     private static final String ONLY_OWNER_BY_ID =
             "@userRepository.findById(#id).get().getEmail() == authentication.getName()";
 
+    @Operation(summary = "Get user")
     @GetMapping(ID)
     public User getUser(@PathVariable final Long id) {
         return userService.getUser(id);
     }
 
+    @Operation(summary = "Get all users")
     @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
+    @Operation(summary = "Create new user")
+    @ApiResponses(@ApiResponse(responseCode = "201", description = "User created"))
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User registerUser(@RequestBody @Valid final UserDto userDto) {
         return userService.createUser(userDto);
     }
 
+
+    @Operation(summary = "Update user")
     @PutMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public User updateUser(@PathVariable final Long id, @RequestBody @Valid final UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 
+    @Operation(summary = "Delete user")
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public void deleteUser(@PathVariable final Long id) throws DeleteException {
