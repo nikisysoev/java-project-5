@@ -1,6 +1,6 @@
 package hexlet.code.dto;
 
-import hexlet.code.constraints.TaskStatusNameConstraint;
+//import hexlet.code.constraints.TaskStatusNameConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ import javax.validation.constraints.NotBlank;
 public class TaskStatusDto {
 
     @NotBlank
-    @TaskStatusNameConstraint
+    //@TaskStatusNameConstraint
     private String name;
 }
