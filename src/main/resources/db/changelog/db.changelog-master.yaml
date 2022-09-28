@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1664372067454-1
+    id: 1664373130460-1
     author: nikita (generated)
     changes:
     - createTable:
@@ -21,7 +21,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: labels
 - changeSet:
-    id: 1664372067454-2
+    id: 1664373130460-2
     author: nikita (generated)
     changes:
     - createTable:
@@ -42,7 +42,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: task_statuses
 - changeSet:
-    id: 1664372067454-3
+    id: 1664373130460-3
     author: nikita (generated)
     changes:
     - createTable:
@@ -75,7 +75,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: tasks
 - changeSet:
-    id: 1664372067454-4
+    id: 1664373130460-4
     author: nikita (generated)
     changes:
     - createTable:
@@ -94,7 +94,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: tasks_labels
 - changeSet:
-    id: 1664372067454-5
+    id: 1664373130460-5
     author: nikita (generated)
     changes:
     - createTable:
@@ -124,7 +124,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: users
 - changeSet:
-    id: 1664372067454-6
+    id: 1664373130460-6
     author: nikita (generated)
     changes:
     - addUniqueConstraint:
@@ -132,7 +132,7 @@ databaseChangeLog:
         constraintName: UC_LABELSNAME_COL
         tableName: labels
 - changeSet:
-    id: 1664372067454-7
+    id: 1664373130460-7
     author: nikita (generated)
     changes:
     - addUniqueConstraint:
@@ -140,7 +140,7 @@ databaseChangeLog:
         constraintName: UC_TASKSNAME_COL
         tableName: tasks
 - changeSet:
-    id: 1664372067454-8
+    id: 1664373130460-8
     author: nikita (generated)
     changes:
     - addUniqueConstraint:
@@ -148,7 +148,7 @@ databaseChangeLog:
         constraintName: UC_TASK_STATUSESNAME_COL
         tableName: task_statuses
 - changeSet:
-    id: 1664372067454-9
+    id: 1664373130460-9
     author: nikita (generated)
     changes:
     - addUniqueConstraint:
@@ -156,7 +156,7 @@ databaseChangeLog:
         constraintName: UC_USERSEMAIL_COL
         tableName: users
 - changeSet:
-    id: 1664372067454-10
+    id: 1664373130460-10
     author: nikita (generated)
     changes:
     - addForeignKeyConstraint:
@@ -169,7 +169,7 @@ databaseChangeLog:
         referencedTableName: labels
         validate: true
 - changeSet:
-    id: 1664372067454-11
+    id: 1664373130460-11
     author: nikita (generated)
     changes:
     - addForeignKeyConstraint:
@@ -182,7 +182,7 @@ databaseChangeLog:
         referencedTableName: task_statuses
         validate: true
 - changeSet:
-    id: 1664372067454-12
+    id: 1664373130460-12
     author: nikita (generated)
     changes:
     - addForeignKeyConstraint:
@@ -195,7 +195,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1664372067454-13
+    id: 1664373130460-13
     author: nikita (generated)
     changes:
     - addForeignKeyConstraint:
@@ -208,7 +208,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1664372067454-14
+    id: 1664373130460-14
     author: nikita (generated)
     changes:
     - addForeignKeyConstraint:
