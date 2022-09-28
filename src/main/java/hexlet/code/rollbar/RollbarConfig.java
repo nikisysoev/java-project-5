@@ -13,10 +13,10 @@ import java.util.Objects;
 @ComponentScan({"hexlet.code"})
 public class RollbarConfig {
 
-    @Value("${rollbar_token:}")
+    @Value("${rollbar_token}")
     private String rollbarToken;
 
-    @Value("${spring.profiles.active:}")
+    @Value("${spring.profiles.active}")
     private String activeProfile;
 
     @Bean
