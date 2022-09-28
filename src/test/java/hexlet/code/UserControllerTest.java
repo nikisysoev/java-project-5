@@ -108,6 +108,8 @@ public class UserControllerTest {
         assertThat(responsePost1.getStatus()).isEqualTo(401);
 
         final LoginDto loginDto = new  LoginDto(
+                "",
+                "",
                 "email@email.com",
                 ""
         );

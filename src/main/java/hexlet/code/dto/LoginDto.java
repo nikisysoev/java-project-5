@@ -14,6 +14,10 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class LoginDto {
 
+    private String firstName;
+
+    private String lastName;
+
     @Email
     @NotBlank
     private String email;

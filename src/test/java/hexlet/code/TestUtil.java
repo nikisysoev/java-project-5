@@ -60,6 +60,8 @@ public class TestUtil {
 
     public ResultActions logUser() throws Exception {
         LoginDto loginDto = new  LoginDto(
+                "",
+                "",
                 "email@email.com",
                 "password"
         );
