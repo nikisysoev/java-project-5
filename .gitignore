@@ -13,5 +13,4 @@ node
 frontend/build
 frontend/node_modules
 
-secrets.yml
 
