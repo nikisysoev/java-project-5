@@ -12,5 +12,4 @@ taskManager.trace.db
 node
 frontend/build
 frontend/node_modules
-
-
+frontend/.github
