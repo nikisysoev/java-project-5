@@ -8,5 +8,5 @@
 
 [TaskManager](https://remote-task-manager.herokuapp.com/) is a task management system. It allows you to set tasks, assign performers and change their statuses. Registration and authentication are required to work with the system.
 
-The Swagger UI page will be available at http://server:port/context-path/swagger-ui.html.
+[Swagger UI page](https://remote-task-manager.herokuapp.com/swagger-ui.html)
 
