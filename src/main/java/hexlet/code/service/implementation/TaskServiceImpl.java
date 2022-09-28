@@ -13,6 +13,7 @@ import hexlet.code.service.TaskService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,9 +52,14 @@ public class TaskServiceImpl implements TaskService {
             task.setExecutor(new User(taskDto.getExecutorId()));
         }
 
-        final Set<Label> labels = taskDto.getLabelIds().stream()
-                .map(Label::new)
-                .collect(Collectors.toSet());
+        Set<Long> labelsIds = taskDto.getLabelIds();
+        Set<Label> labels = null;
+
+        if (!CollectionUtils.isEmpty(labelsIds)) {
+            labels = taskDto.getLabelIds().stream()
+                    .map(Label::new)
+                    .collect(Collectors.toSet());
+        }
 
         task.setLabels(labels);
         return taskRepository.save(task);
@@ -72,9 +78,14 @@ public class TaskServiceImpl implements TaskService {
             task.setExecutor(new User(taskDto.getExecutorId()));
         }
 
-        final Set<Label> labels = taskDto.getLabelIds().stream()
-                .map(Label::new)
-                .collect(Collectors.toSet());
+        Set<Long> labelsIds = taskDto.getLabelIds();
+        Set<Label> labels = null;
+
+        if (!CollectionUtils.isEmpty(labelsIds)) {
+            labels = taskDto.getLabelIds().stream()
+                    .map(Label::new)
+                    .collect(Collectors.toSet());
+        }
 
         task.setLabels(labels);
         return taskRepository.save(task);

@@ -7,7 +7,11 @@ build
 database.mv.db
 database.trace.db
 taskManager.mv.db
+taskManager.trace.db
 
 node
 frontend/build
 frontend/node_modules
+
+secrets.yml
+

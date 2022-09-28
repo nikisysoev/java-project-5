@@ -7,6 +7,7 @@ import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.service.TaskStatusService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 @Service
@@ -43,7 +44,7 @@ public class TaskStatusServiceImpl implements TaskStatusService {
     public void deleteTaskStatus(final Long id) throws DeleteException {
         final TaskStatus taskStatus = taskStatusRepository.findById(id).get();
 
-        if (!taskStatus.getTasks().isEmpty()) {
+        if (!CollectionUtils.isEmpty(taskStatus.getTasks())) {
             throw new DeleteException("Status is used in tasks, firstly delete necessary tasks");
         }
 

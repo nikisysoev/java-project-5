@@ -9,6 +9,7 @@ plugins {
 	id 'org.springdoc.openapi-gradle-plugin' version '1.3.3'
 	id 'com.github.johnrengelman.processes' version '0.5.0'
 	id 'org.siouan.frontend-jdk11' version '6.0.0'
+	id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -66,6 +67,16 @@ dependencies {
 			'org.springframework.boot:spring-boot-starter-test',
 			'com.tobedevoured.modelcitizen:spring:0.8.3'
 	)
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+	}
+}
+
+test {
+	finalizedBy jacocoTestReport
 }
 
 wrapper {

@@ -1,7 +1,6 @@
 package hexlet.code.security;
 
 import hexlet.code.service.implementation.UsersDetailsServiceImpl;
-import java.util.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
@@ -40,13 +41,20 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                                     final FilterChain filterChain) throws ServletException, IOException {
 
         //check jwtToken
-        final String username = Optional.ofNullable(request.getHeader(AUTHORIZATION))
-                .map(header -> header.replaceFirst("Bearer", ""))
-                .map(String::trim)
-                .map(jwtUtil::validateToken)
-                .map(claims -> claims.get("username"))
-                .map(Object::toString)
-                .orElseThrow();
+        String username;
+        try {
+            username = Stream.of(request.getHeader(AUTHORIZATION))
+                    .map(header -> header.replaceFirst("Bearer", ""))
+                    .map(String::trim)
+                    .map(jwtUtil::validateToken)
+                    .map(claims -> claims.get("username"))
+                    .map(Object::toString)
+                    .collect(Collectors.joining());
+
+        } catch (RuntimeException exc) {
+            response.sendError(401, "User is not authorized");
+            return;
+        }
 
         final UserDetails userDetails =
                 usersDetailsServiceImpl.loadUserByUsername(username);

@@ -7,6 +7,8 @@ import hexlet.code.repository.LabelRepository;
 import hexlet.code.service.LabelService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import java.util.List;
 
 @Service
@@ -43,7 +45,7 @@ public class LabelServiceImpl implements LabelService {
     public void deleteLabel(final Long id) throws DeleteException {
         final Label label = labelRepository.findById(id).get();
 
-        if (!label.getTasks().isEmpty()) {
+        if (!CollectionUtils.isEmpty(label.getTasks())) {
             throw new DeleteException("Label is used with tasks, firstly delete tasks");
         }
 

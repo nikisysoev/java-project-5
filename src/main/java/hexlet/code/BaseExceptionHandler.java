@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import hexlet.code.exceptions.DeleteException;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -11,17 +10,14 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice
-@RestController
-public class BaseExceptionHandler implements ErrorController {
+@ResponseBody
+public class BaseExceptionHandler {
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
@@ -63,13 +59,5 @@ public class BaseExceptionHandler implements ErrorController {
     @ExceptionHandler(DeleteException.class)
     public String deleteExceptionHandler(DeleteException exception) {
         return exception.getMessage();
-    }
-
-    //for handling exceptions in filters, because they are not @components
-    @RequestMapping("/error")
-    public void handleError(final HttpServletRequest request, final HttpServletResponse response) throws Throwable {
-        if (request.getAttribute("javax.servlet.error.exception") != null) {
-            throw (Throwable) request.getAttribute("javax.servlet.error.exception");
-        }
     }
 }
