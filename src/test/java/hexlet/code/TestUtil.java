@@ -19,7 +19,7 @@ import static hexlet.code.controller.LabelController.LABEL_CONTROLLER;
 import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
 import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
-import static hexlet.code.security.SecurityConfig.LOGIN;
+import static hexlet.code.config.SecurityConfig.LOGIN;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 

@@ -19,7 +19,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -35,22 +34,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(final UserDto userDto) {
-        final User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        final User user = fromDto(new User(), userDto);
         return userRepository.save(user);
     }
 
     @Override
     public User updateUser(final Long id, final UserDto userDto) {
-        final User user = userRepository.findById(id)
+        final User userFromRepo = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        user.setEmail(userDto.getEmail());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        final User user = fromDto(userFromRepo, userDto);
         return userRepository.save(user);
     }
 
@@ -74,5 +66,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         return userRepository.findByEmail(getCurrentUserName()).get();
+    }
+
+    private User fromDto(final User user, final UserDto userDto) {
+        user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        return user;
     }
 }

@@ -7,8 +7,6 @@ import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
 import hexlet.code.repository.TaskRepository;
-import hexlet.code.repository.TaskStatusRepository;
-import hexlet.code.repository.UserRepository;
 import hexlet.code.service.TaskService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,8 +21,6 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
-    private final TaskStatusRepository taskStatusRepository;
     private final UserService userService;
 
     @Override
@@ -39,8 +35,22 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(final TaskDto taskDto) {
-        final Task task = new Task();
+        final Task task = fromDto(new Task(), taskDto);
+        return taskRepository.save(task);
+    }
 
+    @Override
+    public Task updateTask(final Long id, final TaskDto taskDto) {
+        final Task task = fromDto(taskRepository.findById(id).get(), taskDto);
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public void deleteTask(final Long id) {
+        taskRepository.deleteById(id);
+    }
+
+    private Task fromDto(final Task task, final TaskDto taskDto) {
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
         //NotNull always
@@ -62,37 +72,6 @@ public class TaskServiceImpl implements TaskService {
         }
 
         task.setLabels(labels);
-        return taskRepository.save(task);
-    }
-
-    @Override
-    public Task updateTask(final Long id, final TaskDto taskDto) {
-        final Task task = taskRepository.findById(id).get();
-
-        task.setName(taskDto.getName());
-        task.setDescription(taskDto.getDescription());
-        task.setTaskStatus(new TaskStatus(taskDto.getTaskStatusId()));
-        task.setAuthor(userService.getCurrentUser());
-
-        if (taskDto.getExecutorId() != null) {
-            task.setExecutor(new User(taskDto.getExecutorId()));
-        }
-
-        Set<Long> labelsIds = taskDto.getLabelIds();
-        Set<Label> labels = null;
-
-        if (!CollectionUtils.isEmpty(labelsIds)) {
-            labels = taskDto.getLabelIds().stream()
-                    .map(Label::new)
-                    .collect(Collectors.toSet());
-        }
-
-        task.setLabels(labels);
-        return taskRepository.save(task);
-    }
-
-    @Override
-    public void deleteTask(final Long id) {
-        taskRepository.deleteById(id);
+        return task;
     }
 }

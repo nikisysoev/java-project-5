@@ -19,6 +19,12 @@ import java.util.NoSuchElementException;
 @ResponseBody
 public class BaseExceptionHandler {
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public String generalExceptionHandler(Exception exception) {
+        return exception.getMessage();
+    }
+
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     public String badCredentialsExceptionHandler(BadCredentialsException exception) {
@@ -31,13 +37,13 @@ public class BaseExceptionHandler {
         return exception.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UsernameNotFoundException.class)
     public String userNotFoundExceptionHandler(UsernameNotFoundException exception) {
         return exception.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public String accessDeniedExceptionHandler(AccessDeniedException exception) {
         return exception.getMessage();

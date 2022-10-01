@@ -1,5 +1,8 @@
-package hexlet.code.security;
+package hexlet.code.config;
 
+import hexlet.code.security.JWTAuthenticationFilter;
+import hexlet.code.security.JWTAuthorizationFilter;
+import hexlet.code.security.JWTUtil;
 import hexlet.code.service.implementation.UsersDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
